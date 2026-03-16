@@ -4,11 +4,11 @@ using System.Text.RegularExpressions;
 using System.Xml.Schema;
 using PowerArgs;
 
-internal class pleasanter_items_attachments_downloader
+internal class VehicleVisionPleasanterItemsAttachmentsDownloader
 {
     private static readonly HttpClient _httpClient;
 
-    static pleasanter_items_attachments_downloader()
+    static VehicleVisionPleasanterItemsAttachmentsDownloader()
     {
         _httpClient = new HttpClient();
     }

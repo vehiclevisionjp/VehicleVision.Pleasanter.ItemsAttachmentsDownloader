@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Schema;
 using PowerArgs;
 
-internal class VehicleVisionPleasanterItemsAttachmentsDownloader
+internal sealed class VehicleVisionPleasanterItemsAttachmentsDownloader
 {
     private static readonly HttpClient _httpClient;
 
@@ -51,7 +51,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
 
         if (!respose.IsSuccessStatusCode)
         {
-            throw new Exception($"Cannot get Site Info. {respose.StatusCode}");
+            throw new InvalidOperationException($"Cannot get Site Info. {respose.StatusCode}");
         }
 
         var siteResponse = await respose.Content.ReadAsAsync<ApiSiteResponse>();
@@ -83,7 +83,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
 
         if (!respose.IsSuccessStatusCode)
         {
-            throw new Exception($"Can not get Record List. {respose.StatusCode}");
+            throw new InvalidOperationException($"Can not get Record List. {respose.StatusCode}");
         }
 
         var recordsResponse = await respose.Content.ReadAsAsync<ApiRecordsResponse>();
@@ -92,7 +92,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
 
         await GetRecordsBinaries(nest + 1, arg, site, recordsResponse.Response.Data);
 
-        if (recordsResponse.Response.Data.Any() && recordsResponse.Response.Data.Count() == recordsResponse.Response.PageSize)
+        if (recordsResponse.Response.Data.Count > 0 && recordsResponse.Response.Data.Count == recordsResponse.Response.PageSize)
         {
             await GetRecords(nest + 1, arg, site, offset + recordsResponse.Response.PageSize);
         }
@@ -106,9 +106,9 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
 
         foreach (var record in records.Select((r, i) => new { r, i }))
         {
-            var ratio = record.i / (double)records.Count();
+            var ratio = record.i / (double)records.Count;
 
-            WriteLine(nest + 1, $"({ratio:P2})Get Records Binaries...[{Omission(record.r.ItemTitle)}]({record.i:#,##0}/{records.Count():#,##0})");
+            WriteLine(nest + 1, $"({ratio:P2})Get Records Binaries...[{Omission(record.r.ItemTitle)}]({record.i:#,##0}/{records.Count:#,##0})");
 
             await GetBodyBinaries(nest + 1, arg, site, record.r);
             await GetDescriptionBinaries(nest + 1, arg, site, record.r);
@@ -131,7 +131,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
     {
         WriteLine(nest, $"Get Description Binaries...");
 
-        if (!record.DescriptionHash.Any())
+        if (record.DescriptionHash.Count == 0)
         {
             //出力すべき添付ファイルがないときは処理しない
             //レコードに対する添付ファイル項目がない
@@ -147,7 +147,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
                 continue;
             }
 
-            if (arg.TargetDescription.Any() && !arg.TargetDescription.Any(target => target == description.Key))
+            if (arg.TargetDescription.Count > 0 && !arg.TargetDescription.Any(target => target == description.Key))
             {
                 continue;
             }
@@ -170,7 +170,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
     {
         WriteLine(nest, $"Get Comments Binaries...");
 
-        if (!record.Comments.Any())
+        if (record.Comments.Count == 0)
         {
             //コメント項目がないときは処理しない
             WriteLine(nest, $"Get Comments Binaries...None");
@@ -183,7 +183,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
             return;
         }
 
-        if (arg.TargetDescription.Any() && !arg.TargetComments)
+        if (arg.TargetDescription.Count > 0 && !arg.TargetComments)
         {
             return;
         }
@@ -214,7 +214,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
             return;
         }
 
-        if (arg.TargetDescription.Any() && !arg.TargetBody)
+        if (arg.TargetDescription.Count > 0 && !arg.TargetBody)
         {
             return;
         }
@@ -232,7 +232,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
     {
         var matches = Regex.Matches(body ?? "", @"\!\[image\]\((/\S*?)*?/binaries/[a-f0-9]{32}/show\)");
 
-        if (!matches.Any())
+        if (matches.Count == 0)
         {
             //処理対象が存在しないので処理しない
             WriteLine(nest, $"Get {type} Binaries...None");
@@ -251,7 +251,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
     {
         WriteLine(nest, $"Get Attachments Binaries...");
 
-        if (!record.AttachmentsHash.Any())
+        if (record.AttachmentsHash.Count == 0)
         {
             //出力すべき添付ファイルがないときは処理しない
             //レコードに対する添付ファイル項目がない
@@ -262,7 +262,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
 
         foreach (var attachments in record.AttachmentsHash)
         {
-            if (!attachments.Value.Any())
+            if (attachments.Value.Count == 0)
             {
                 //出力すべき添付ファイルがないときは処理しない
                 //項目があるが添付ファイルがない
@@ -279,7 +279,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
                 continue;
             }
 
-            if (arg.TargetDescription.Any() && !arg.TargetAttachments.Any(target => target == attachments.Key))
+            if (arg.TargetDescription.Count > 0 && !arg.TargetAttachments.Any(target => target == attachments.Key))
             {
                 continue;
             }
@@ -300,14 +300,16 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
     /// <summary>
     /// GUIDを指定して指定パスにファイルをダウンロードしてくる
     /// </summary>
+    /// <param name="nest"></param>
     /// <param name="arg"></param>
     /// <param name="site"></param>
     /// <param name="record"></param>
     /// <param name="type"></param>
     /// <param name="itemLogicName"></param>
     /// <param name="guid"></param>
+    /// <param name="specialName"></param>
     /// <returns></returns>
-    /// <exception cref="Exception"></exception>
+    /// <exception cref="InvalidOperationException">HTTPレスポンスのステータスコードが予期しない値の場合にスローされます。</exception>
     private static async Task GetBinaryAndSave(int nest, MyArgs arg, SiteData site, RecordData record, BinaryType type, string itemLogicName, string guid, string specialName = null)
     {
         var itemPhysicName = site.SiteSettings.Columns.Where(column => column.ColumnName == itemLogicName).FirstOrDefault()?.LabelText;
@@ -327,7 +329,7 @@ internal class VehicleVisionPleasanterItemsAttachmentsDownloader
             {
                 default:
                     {
-                        throw new Exception();
+                        throw new InvalidOperationException();
                     }
                 case HttpStatusCode.NotFound:
                     {

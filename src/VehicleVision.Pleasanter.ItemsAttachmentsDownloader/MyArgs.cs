@@ -1,6 +1,6 @@
 ﻿using PowerArgs;
 
-internal class MyArgs
+internal sealed class MyArgs
 {
     //出力対象のパス
     [ArgRequired, ArgExistingDirectory]
@@ -26,16 +26,16 @@ internal class MyArgs
     [ArgRegex("^((Attachments|Description)([A-Z]|00[1-9]|0[1-9][0-9]|100)|Body|Comments)+?(,((Attachments|Description)([A-Z]|00[1-9]|0[1-9][0-9]|100)|Body|Comments))*$")]
     public string Target { get; set; } = string.Empty;
 
-    public List<string> SkipAttachments => Skip.Split(',').Where(x => x.StartsWith("Attachments")).ToList();
+    public List<string> SkipAttachments => Skip.Split(',').Where(x => x.StartsWith("Attachments", StringComparison.Ordinal)).ToList();
 
-    public List<string> SkipDescription => Skip.Split(',').Where(x => x.StartsWith("Description")).ToList();
+    public List<string> SkipDescription => Skip.Split(',').Where(x => x.StartsWith("Description", StringComparison.Ordinal)).ToList();
 
     public bool SkipBody => Skip.Contains("Body");
     public bool SkipComments => Skip.Contains("Comments");
 
-    public List<string> TargetAttachments => Target.Split(',').Where(x => x.StartsWith("Attachments")).ToList();
+    public List<string> TargetAttachments => Target.Split(',').Where(x => x.StartsWith("Attachments", StringComparison.Ordinal)).ToList();
 
-    public List<string> TargetDescription => Target.Split(',').Where(x => x.StartsWith("Description")).ToList();
+    public List<string> TargetDescription => Target.Split(',').Where(x => x.StartsWith("Description", StringComparison.Ordinal)).ToList();
 
     public bool TargetBody => Target.Contains("Body");
     public bool TargetComments => Target.Contains("Comments");

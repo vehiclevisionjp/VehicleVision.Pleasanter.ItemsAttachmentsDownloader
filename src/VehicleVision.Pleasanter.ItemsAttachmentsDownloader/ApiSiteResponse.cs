@@ -1,28 +1,28 @@
 ﻿using System.Text.RegularExpressions;
 
-internal class ApiSiteResponse
+internal sealed class ApiSiteResponse
 {
     public SiteResponse Response { get; set; } = new SiteResponse();
 }
 
-internal class SiteResponse
+internal sealed class SiteResponse
 {
     public SiteData Data { get; set; } = new SiteData();
 }
 
-internal class SiteData
+internal sealed class SiteData
 {
     public string Title { get; set; }
     public string TitleFormated => Regex.Replace(Title ?? "", $"[{string.Join("", Path.GetInvalidFileNameChars())}]", "_");
     public SiteSiteSettings SiteSettings { get; set; } = new SiteSiteSettings();
 }
 
-internal class SiteSiteSettings
+internal sealed class SiteSiteSettings
 {
     public List<SiteColumn> Columns { get; set; } = new List<SiteColumn>();
 }
 
-internal class SiteColumn
+internal sealed class SiteColumn
 {
     public string ColumnName { get; set; }
     public string LabelText { get; set; }

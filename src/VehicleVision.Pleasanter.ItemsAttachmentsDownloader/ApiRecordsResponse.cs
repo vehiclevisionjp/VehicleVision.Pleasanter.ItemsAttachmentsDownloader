@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
-internal class ApiRecordsResponse
+internal sealed class ApiRecordsResponse
 {
     public RecordsResponse Response { get; set; } = new RecordsResponse();
 }
 
-internal class RecordsResponse
+internal sealed class RecordsResponse
 {
     public List<RecordData> Data { get; set; } = new List<RecordData>();
     public long PageSize { get; set; }
@@ -16,7 +16,7 @@ internal class RecordsResponse
     public long Offset { get; set; }
 }
 
-internal class RecordData
+internal sealed class RecordData
 {
     public long? ResultId { get; set; }
     public long? IssueId { get; set; }
@@ -30,7 +30,7 @@ internal class RecordData
     public List<RecordComment> Comments { get; set; } = new List<RecordComment>();
 }
 
-internal class RecordAttachment
+internal sealed class RecordAttachment
 {
     public string Guid { get; set; }
     public string Name { get; set; }
@@ -39,13 +39,13 @@ internal class RecordAttachment
     public string HashCode { get; set; }
 }
 
-internal class RecordComment
+internal sealed class RecordComment
 {
     public long CommentId { get; set; }
     public string Body { get; set; }
 }
 
-internal class JsonJsonConverter<T> : JsonConverter where T : class, new()
+internal sealed class JsonJsonConverter<T> : JsonConverter where T : class, new()
 {
     public override bool CanConvert(Type objectType)
     {

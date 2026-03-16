@@ -1,12 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 
-internal class ApiBinaryResponse
+internal sealed class ApiBinaryResponse
 {
     public long Id { get; set; }
     public BinaryResponse Response { get; set; } = new BinaryResponse();
 }
 
-internal class BinaryResponse
+internal sealed class BinaryResponse
 {
     public string Base64 { get; set; }
     public string FileName { get; set; }

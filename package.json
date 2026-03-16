@@ -3,10 +3,10 @@
   "scripts": {
     "preinstall:check": "node -e \"const fs=require('fs');if(!fs.existsSync('node_modules')){process.exit(1)}\" || npm install",
     "setup": "npm install",
-    "lint:md": "npm run preinstall:check && markdownlint-cli2 \"*.md\"",
-    "lint:md:fix": "npm run preinstall:check && markdownlint-cli2 --fix \"*.md\"",
-    "format": "npm run preinstall:check && prettier --write \"*.md\"",
-    "format:check": "npm run preinstall:check && prettier --check \"*.md\""
+    "lint:md": "npm run preinstall:check && markdownlint-cli2 \"docs/**/*.md\" \"*.md\"",
+    "lint:md:fix": "npm run preinstall:check && markdownlint-cli2 --fix \"docs/**/*.md\" \"*.md\"",
+    "format": "npm run preinstall:check && prettier --write \"docs/**/*.md\" \"*.md\"",
+    "format:check": "npm run preinstall:check && prettier --check \"docs/**/*.md\" \"*.md\""
   },
   "devDependencies": {
     "markdownlint": "^0.40.0",

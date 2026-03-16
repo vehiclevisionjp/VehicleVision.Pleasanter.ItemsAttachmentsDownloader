@@ -309,7 +309,7 @@ internal sealed class VehicleVisionPleasanterItemsAttachmentsDownloader
     /// <param name="guid"></param>
     /// <param name="specialName"></param>
     /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="InvalidOperationException">HTTPレスポンスのステータスコードが予期しない値の場合にスローされます。</exception>
     private static async Task GetBinaryAndSave(int nest, MyArgs arg, SiteData site, RecordData record, BinaryType type, string itemLogicName, string guid, string specialName = null)
     {
         var itemPhysicName = site.SiteSettings.Columns.Where(column => column.ColumnName == itemLogicName).FirstOrDefault()?.LabelText;

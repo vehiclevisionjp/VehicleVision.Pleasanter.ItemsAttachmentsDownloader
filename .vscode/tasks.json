@@ -1,0 +1,85 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "restore",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "restore"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "--no-restore"
+      ],
+      "dependsOn": [
+        "restore"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "build (Release)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "--configuration",
+        "Release",
+        "--no-restore"
+      ],
+      "dependsOn": [
+        "restore"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "clean",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "clean"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "rebuild",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "--no-restore"
+      ],
+      "dependsOn": [
+        "clean",
+        "restore"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "format",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "format",
+        "--include-generated"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build",
+      "detail": "C#コードのフォーマット（using整理含む）"
+    }
+  ]
+}

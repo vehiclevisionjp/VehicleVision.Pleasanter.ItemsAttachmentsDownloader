@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "scripts": {
+    "preinstall:check": "node -e \"const fs=require('fs');if(!fs.existsSync('node_modules')){process.exit(1)}\" || npm install",
+    "setup": "npm install",
+    "lint:md": "npm run preinstall:check && markdownlint-cli2 \"*.md\"",
+    "lint:md:fix": "npm run preinstall:check && markdownlint-cli2 --fix \"*.md\"",
+    "format": "npm run preinstall:check && prettier --write \"*.md\"",
+    "format:check": "npm run preinstall:check && prettier --check \"*.md\""
+  },
+  "devDependencies": {
+    "markdownlint": "^0.40.0",
+    "markdownlint-cli2": "^0.20.0",
+    "prettier": "^3.5.0"
+  }
+}

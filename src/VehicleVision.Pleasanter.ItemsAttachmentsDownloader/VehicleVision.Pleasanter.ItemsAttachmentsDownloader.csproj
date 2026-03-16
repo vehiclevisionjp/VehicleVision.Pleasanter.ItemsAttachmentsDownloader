@@ -6,7 +6,13 @@
     <RootNamespace>VehicleVision.Pleasanter.ItemsAttachmentsDownloader</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <VersionPrefix>1.0.2</VersionPrefix>
+    <Version>0.0.0</Version>
+    <Authors>VehicleVision</Authors>
+    <Description>Pleasanterインスタンスから添付ファイルを一括ダウンロードするためのツール</Description>
+    <PackageProjectUrl>https://github.com/vehiclevisionjp/VehicleVision.Pleasanter.ItemsAttachmentsDownloader</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/vehiclevisionjp/VehicleVision.Pleasanter.ItemsAttachmentsDownloader</RepositoryUrl>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+    <PackageTags>Pleasanter;Attachments;Downloader</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

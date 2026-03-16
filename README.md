@@ -1,46 +1,46 @@
 ## VehicleVision.Pleasanter.ItemsAttachmentsDownloader
 
-This tool, developed in C#, simplifies the process of bulk downloading attachments from your Pleasanter instance. It addresses the challenges of accessing attached files, whether they are stored in the database (requiring BASE64 string manipulation) or locally (where filenames are GUIDs and database lookups are necessary).
+C#で開発された、Pleasanterインスタンスから添付ファイルを一括ダウンロードするためのツールです。データベースに保存された添付ファイル（BASE64文字列の操作が必要）やローカルに保存された添付ファイル（ファイル名がGUIDでデータベース検索が必要）の両方に対応しています。
 
-By allowing downloads at the site level with just the site ID, this tool streamlines the entire process. It is compatible with environments running .NET 10, including Windows, MacOS, and Linux, and has been tested to work with Pleasanter version 1.4.* and later.
+サイトIDを指定するだけでサイト単位のダウンロードが可能で、プロセス全体を簡素化します。.NET 10がインストールされたWindows、MacOS、Linuxに対応しており、Pleasanter v1.4.*以降で動作確認済みです。
 
-### Features
+### 機能
 
-* **Site-Level Download:** Download all attachments associated with a specific Pleasanter site.
-* **Handles Both Storage Types:** Works with attachments stored directly in the database (as BASE64) and those stored locally (with GUID filenames).
-* **Cross-Platform:** Runs on Windows, MacOS, and Linux environments with .NET 10 installed.
-* **Pleasanter Compatibility:** Tested with Pleasanter version 1.4.* and later.
-* **Command-Line Interface:** Operated through simple command-line arguments.
-* **Organized Output:** Downloads are structured in a directory format for easy management.
-* **Optional Target Fields:** Allows you to specify which attachment fields to include in the download.
+* **サイト単位のダウンロード:** 特定のPleasanterサイトに関連するすべての添付ファイルをダウンロードします。
+* **両方の保存形式に対応:** データベースに直接保存された添付ファイル（BASE64）とローカルに保存された添付ファイル（GUIDファイル名）の両方に対応しています。
+* **クロスプラットフォーム:** .NET 10がインストールされたWindows、MacOS、Linux環境で動作します。
+* **Pleasanter互換性:** Pleasanter v1.4.*以降で動作確認済みです。
+* **コマンドラインインターフェース:** シンプルなコマンドライン引数で操作します。
+* **整理された出力:** ダウンロードファイルはディレクトリ構造で管理されます。
+* **対象フィールドの指定:** ダウンロードに含める添付ファイルフィールドを指定できます。
 
-### Usage
+### 使い方
 
-The tool is executed via the command line. Ensure that .NET 10 is installed on your system.
+コマンドラインから実行します。システムに.NET 10がインストールされていることを確認してください。
 
 ```bash
 dotnet VehicleVision.Pleasanter.ItemsAttachmentsDownloader.dll /Url:{PLEASANTER_URL} /SiteId:{SITE_ID} /ApiKey:{API_KEY} /Path:{OUTPUT_PATH} [/Target:{TARGET_FIELDS}] [/Skip:{SKIP_FIELDS}]
 ```
 
-#### Parameters
+#### パラメータ
 
-* /Url:{PLEASANTER_URL}: The URL of your Pleasanter instance.
-* /SiteId:{SITE_ID}: The ID of the Pleasanter site to download attachments from.
-* /ApiKey:{API_KEY}: Your Pleasanter API key with necessary read permissions.
-* /Path:{OUTPUT_PATH}: The local directory where the downloaded attachments will be saved.
-* /Target:{TARGET_FIELDS} (Optional): A comma-separated list of the physical names of attachment fields to specifically download (e.g., AttachmentsA,DescriptionA).
-* /Skip:{TARGET_FIELDS} (Optional): A comma-separated list of the physical names of attachment fields to skip download (e.g., AttachmentsA,DescriptionA).
+* /Url:{PLEASANTER_URL}: PleasanterインスタンスのURLです。
+* /SiteId:{SITE_ID}: 添付ファイルをダウンロードするPleasanterサイトのIDです。
+* /ApiKey:{API_KEY}: 読み取り権限を持つPleasanterのAPIキーです。
+* /Path:{OUTPUT_PATH}: ダウンロードした添付ファイルの保存先ローカルディレクトリです。
+* /Target:{TARGET_FIELDS}（任意）: ダウンロード対象の添付ファイルフィールドの物理名をカンマ区切りで指定します（例: AttachmentsA,DescriptionA）。
+* /Skip:{TARGET_FIELDS}（任意）: ダウンロードをスキップする添付ファイルフィールドの物理名をカンマ区切りで指定します（例: AttachmentsA,DescriptionA）。
 
-#### Example
+#### 実行例
 
-```Bash
-dotnet VehicleVision.Pleasanter.ItemsAttachmentsDownloader.dll /Url:[https://your-pleasanter.com](https://your-pleasanter.com) /SiteId:123 /ApiKey:your_secret_api_key /Path:./downloads /Target:AttachmentsA,DescriptionA
+```bash
+dotnet VehicleVision.Pleasanter.ItemsAttachmentsDownloader.dll /Url:https://your-pleasanter.com /SiteId:123 /ApiKey:your_secret_api_key /Path:./downloads /Target:AttachmentsA,DescriptionA
 ```
 
-### License
+### ライセンス
 
-This tool is released under the AGPL-3.0 License.
+このツールは AGPL-3.0 ライセンスの下で公開されています。
 
-### Note
+### 注意事項
 
-While this tool simplifies the download process, please be aware that the exception handling is basic and may halt subsequent processes upon encountering an error.
+このツールはダウンロードプロセスを簡素化しますが、例外処理は基本的なもののため、エラー発生時に後続の処理が停止する場合があります。

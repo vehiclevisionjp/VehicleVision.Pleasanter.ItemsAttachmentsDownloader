@@ -9,6 +9,22 @@
 Pleasanter インスタンスから添付ファイルを一括ダウンロードするためのツールです。
 データベースに保存された添付ファイル（BASE64）やローカルに保存された添付ファイル（GUID ファイル名）の両方に対応しています。
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [機能](#機能)
+- [使い方](#使い方)
+    - [パラメータ](#パラメータ)
+    - [実行例](#実行例)
+    - [注意事項](#注意事項)
+- [プロジェクト構成](#プロジェクト構成)
+- [サードパーティライセンス](#サードパーティライセンス)
+- [セキュリティ](#セキュリティ)
+- [ライセンス](#ライセンス)
+- [謝辞](#謝辞)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 機能
 
 - **サイト単位のダウンロード:** 特定の Pleasanter サイトに関連するすべての添付ファイルをダウンロード
@@ -58,8 +74,11 @@ dotnet VehicleVision.Pleasanter.ItemsAttachmentsDownloader.dll \
 
 ```text
 VehicleVision.Pleasanter.ItemsAttachmentsDownloader/
-├── .github/                    # GitHub設定（セキュリティポリシー等）
+├── .github/                    # GitHub設定（CI/CD、セキュリティポリシー等）
 ├── .vscode/                    # VS Code設定
+├── docs/                       # ドキュメント
+│   ├── contributing/           # 開発者向けガイドライン
+│   └── wiki/                   # Wikiドキュメント
 ├── LICENSES/                   # サードパーティライセンス
 ├── src/
 │   └── VehicleVision.Pleasanter.ItemsAttachmentsDownloader/

@@ -1,7 +1,9 @@
 # コントリビューションガイド
 
 VehicleVision.Pleasanter.ItemsAttachmentsDownloader へのコントリビューションに感謝します。
-このドキュメントでは、プロジェクトへの貢献方法について説明します。
+このドキュメントは**開発者・コントリビューター向け**です。
+プロジェクトへの貢献方法や開発の進め方について説明します。
+ツールの機能や使い方については [README.md](README.md) を参照してください。
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->

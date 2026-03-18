@@ -19,6 +19,7 @@ Pleasanter インスタンスから添付ファイルを一括ダウンロード
     - [注意事項](#注意事項)
 - [プロジェクト構成](#プロジェクト構成)
 - [サードパーティライセンス](#サードパーティライセンス)
+- [コントリビューション](#コントリビューション)
 - [セキュリティ](#セキュリティ)
 - [ライセンス](#ライセンス)
 - [謝辞](#謝辞)
@@ -112,6 +113,11 @@ VehicleVision.Pleasanter.ItemsAttachmentsDownloader/
 | [PowerArgs](https://github.com/adamabdelhamed/PowerArgs)                   | MIT        | Copyright (c) Adam Abdelhamed |
 
 ライセンスファイルの全文は [LICENSES](./LICENSES/) フォルダを参照してください。
+
+## コントリビューション
+
+開発への参加やバグ報告など、プロジェクトへのコントリビューションを歓迎します。
+詳しくは [CONTRIBUTING.md](CONTRIBUTING.md) をご覧ください。
 
 ## セキュリティ
 
